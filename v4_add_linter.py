@@ -266,11 +266,9 @@ def review_code(code: str) -> str:
 
     result = app.invoke(initial_state)
 
-    final_review = ""
-    for msg in result["messages"]:
-        for part in msg.parts:
-            if part.text:
-                final_review = part.text
+    last_content = result["messages"][-1]
+    final_review = "".join(part.text for part in last_content.parts if part.text)
+
     return final_review
 
 
