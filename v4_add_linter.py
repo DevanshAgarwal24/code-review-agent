@@ -224,8 +224,8 @@ def execute_tool(state: AgentState) -> dict:
             tool_response = types.Content(
                 role="user",
                 parts=[types.Part.from_function_response(
-                    name=tool_name,          # FIX: was hardcoded to "run_code" before,
-                    response={"result": result}  # now correctly reflects which tool ran
+                    name=tool_name,        
+                    response={"result": result} 
                 )]
             )
             return {"messages": [tool_response]}
@@ -254,12 +254,12 @@ graph.add_edge("execute_tool", "think")
 app = graph.compile()
 
 
-def review_code(code: str, language: str = "python") -> str:
+def review_code(code: str) -> str:
     initial_state = {
         "messages": [
             types.Content(
                 role="user",
-                parts=[types.Part(text=f"Please review this {language} code:\n\n{code}")]
+                parts=[types.Part(text=f"Please review this code:\n\n{code}")]
             )
         ]
     }
